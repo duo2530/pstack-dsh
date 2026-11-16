@@ -10,13 +10,13 @@ This repository packages it for [DeepSeek Harness](https://github.com/deepseek-a
 
 ## Install
 
-The bundle is `github:duo2530/pstack-dsh#v0.1.0`.
+The bundle is `github:duo2530/pstack-dsh#v0.1.1`.
 
 **Plugins page.** In DSH, open the sidebar's **Plugins** page, install a bundle, and give it that spec.
 
 **Ask the agent.** Tell it to install the bundle:
 
-> Install the bundle `github:duo2530/pstack-dsh#v0.1.0` with `plugin_manager` `install_bundle`.
+> Install the bundle `github:duo2530/pstack-dsh#v0.1.1` with `plugin_manager` `install_bundle`.
 
 **From a checkout.** Clone the repository, then use **Plugins** > **Add plugin** with the directory you cloned into:
 
