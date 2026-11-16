@@ -11,6 +11,8 @@ import { readdir, readFile, stat } from 'node:fs/promises'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
+import { parseSkill } from '../lib/frontmatter.js'
+
 const ROOT = fileURLToPath(new URL('..', import.meta.url))
 const SKILLS = join(ROOT, 'skills')
 const SKILL_NAME = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
@@ -62,7 +64,7 @@ if (manifest !== undefined) {
     check(manifest.exports?.[entry] !== undefined, `package.json: exports is missing ${entry}`)
   }
   const files = manifest.files ?? []
-  for (const entry of ['index.js', 'cordis.patch.yml', 'skills', 'locale/*.json', 'icon.svg']) {
+  for (const entry of ['index.js', 'lib', 'cordis.patch.yml', 'skills', 'locale/*.json', 'icon.svg']) {
     check(files.includes(entry), `package.json: files is missing ${entry}`)
   }
   check(manifest.engines === undefined, 'package.json: do not pin engines.dsh yet; a prerelease DSH version fails a plain range')
@@ -131,12 +133,15 @@ for (const folder of folders) {
     problems.push(`${label}: no YAML frontmatter`)
     continue
   }
-  const field = (key) => new RegExp(`^${key}:[ \\t]*(.*)$`, 'm').exec(block)?.[1].trim() ?? ''
+  const skill = parseSkill(source)
   check(SKILL_NAME.test(folder.name), `${label}: folder name is not lowercase words joined by hyphens`)
-  check(field('name') === folder.name, `${label}: name ${JSON.stringify(field('name'))} is not the folder name`)
-  const description = field('description')
-  check(description.length > 0, `${label}: no description`)
-  check(description.length <= DESCRIPTION_MAX, `${label}: ${description.length}-character description, over the ${DESCRIPTION_MAX} bound`)
+  check(skill.name === folder.name, `${label}: name ${JSON.stringify(skill.name)} is not the folder name`)
+  check(skill.description.length > 0, `${label}: no description`)
+  check(skill.description.length <= DESCRIPTION_MAX, `${label}: ${skill.description.length}-character description, over the ${DESCRIPTION_MAX} bound`)
+  // A block-scalar marker that reached the catalog as text is the failure a
+  // minimal parser makes; assert prose, not just a non-empty string.
+  check(!/^[>|"'&*!\-[\]{},#]/.test(skill.description), `${label}: description ${JSON.stringify(skill.description.slice(0, 20))} is a YAML marker, not prose`)
+  check(skill.description.includes(' '), `${label}: description is not a sentence`)
   check(!/^disable-model-invocation:/m.test(block), `${label}: disable-model-invocation would hide it from the skill tool`)
 }
 

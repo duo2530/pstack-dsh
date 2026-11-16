@@ -11,11 +11,26 @@ import { readdir } from 'node:fs/promises'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
+import { parseSkill } from '../lib/frontmatter.js'
 import { apply, inject } from '../index.js'
 
 const SKILLS = fileURLToPath(new URL('../skills/', import.meta.url))
 const warnings = []
 let registered
+
+// The parser is the piece that degrades a catalog silently, so pin every shape
+// a hand edit or the generator may write. `make-bot-ui` really uses `>-`.
+const shapes = [
+  ['plain', '---\nname: x\ndescription: one two\n---\n\nbody\n', 'one two'],
+  ['folded', '---\nname: x\ndescription: >-\n  one\n  two\n---\n\nbody\n', 'one two'],
+  ['literal', '---\nname: x\ndescription: |\n  one\n  two\n---\n\nbody\n', 'one\ntwo'],
+  ['quoted', '---\nname: x\ndescription: "one: two"\n---\n\nbody\n', 'one: two'],
+]
+for (const [label, source, expected] of shapes) {
+  const parsed = parseSkill(source)
+  if (parsed?.description !== expected) throw new Error(`${label} description parsed as ${JSON.stringify(parsed?.description)}`)
+  if (parsed?.content !== 'body') throw new Error(`${label} body parsed as ${JSON.stringify(parsed?.content)}`)
+}
 
 apply({
   logger: { warn: (message) => warnings.push(message) },
@@ -41,6 +56,7 @@ for (const candidate of candidates) {
   if (skill.content.trim().length === 0) throw new Error(`${candidate.name} has an empty body`)
   if (skill.content.startsWith('---')) throw new Error(`${candidate.name} kept its frontmatter in the body`)
   if (skill.description.length === 0) throw new Error(`${candidate.name} has no description`)
+  if (!skill.description.includes(' ')) throw new Error(`${candidate.name} description is not a sentence: ${JSON.stringify(skill.description)}`)
 }
 
 const missing = await registered.get({ name: 'nonexistent', description: 'x', locator: { path: join(SKILLS, 'nonexistent', 'SKILL.md'), directory: join(SKILLS, 'nonexistent') } })

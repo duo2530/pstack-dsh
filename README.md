@@ -82,6 +82,7 @@ Install the newer tag spec over the installed bundle, which replaces it. Tags ar
 
 ```
 index.js                  the skill provider: reads skills/*/SKILL.md into ctx.skills
+lib/frontmatter.js        the SKILL.md frontmatter parser the provider and checks share
 cordis.patch.yml          the bundle row that mounts index.js
 skills/                   the generated pstack DSH tree; do not edit by hand
 locale/{en,zh}.json       title and description for the Plugins page

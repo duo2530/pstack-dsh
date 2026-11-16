@@ -12,6 +12,8 @@ import { readdir, readFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
+import { parseSkill } from './lib/frontmatter.js'
+
 /** Precedence of a packaged provider: `BUNDLED_SKILL_RANK` in `@deepseek-ai/dsh-skill`. */
 const RANK = 600
 const PROVIDER = 'pstack'
@@ -25,7 +27,6 @@ const SKILL_NAME = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
  * mirrors the skill tool's catalog limit.
  */
 const DESCRIPTION_MAX = 500
-const FRONTMATTER = /^---\r?\n([\s\S]*?)\r?\n---[ \t]*(?:\r?\n|$)/
 
 export const name = 'pstack-dsh'
 export const inject = ['skills']
@@ -149,26 +150,5 @@ async function read(path) {
   } catch {
     return undefined
   }
-  const block = FRONTMATTER.exec(source)
-  if (block === null) return undefined
-  return {
-    name: field(block[1], 'name'),
-    description: field(block[1], 'description'),
-    content: source.slice(block[0].length).trim(),
-  }
-}
-
-/**
- * Read one single-line frontmatter value, dropping the quotes a generator may add.
- * @param {string} frontmatter the YAML block between the delimiters
- * @param {string} key the field to read
- * @returns {string} the trimmed value, or an empty string when absent
- */
-function field(frontmatter, key) {
-  const line = new RegExp(`^${key}:[ \\t]*(.*)$`, 'm').exec(frontmatter)
-  const value = line?.[1].trim() ?? ''
-  const quote = value[0]
-  return (quote === '"' || quote === "'") && value.length > 1 && value.endsWith(quote)
-    ? value.slice(1, -1)
-    : value
+  return parseSkill(source)
 }
