@@ -10,7 +10,7 @@ This repository packages it for [DeepSeek Harness](https://github.com/deepseek-a
 
 ## Install
 
-The bundle is `github:duo2530/pstack-dsh#v0.1.1`.
+The bundle is `github:duo2530/pstack-dsh#v0.1.1`, or the newest tag on [Releases](https://github.com/duo2530/pstack-dsh/releases).
 
 **Plugins page.** In DSH, open the sidebar's **Plugins** page, install a bundle, and give it that spec.
 
@@ -40,8 +40,8 @@ Run `/setup-pstack` once to decide which model each pstack role uses. It writes 
 |---|---|
 | Style and routing | `poteto-mode`, `poteto-help`, `pstack-adapter`, `poteto-agent`, `comment-sicko`, `unslop`, `bro`, `no-comments`, `in-your-own-words`, `ketchup`, `ketchup-video`, `technical-writing`, `typescript-best-practices`, `teach` |
 | Plan and design | `architect`, `figure-it-out`, `sharpen`, `how`, `why`, `recall`, `reflect`, `automate-me` |
-| Build and review | `interrogate`, `arena`, `swarm`, `blast-radius`, `correct`, `tdd` |
-| Verify and ship | `create-verification-skill`, `maintain-verification-skill`, `create-formal-verification-skill`, `statechart`, `benchmark-checklist` |
+| Build and review | `interrogate`, `arena`, `swarm`, `blast-radius`, `correct`, `tdd`, `make-bot-ui` |
+| Verify and ship | `create-verification-skill`, `maintain-verification-skill`, `create-formal-verification-skill`, `maintain-formal-verification-skill`, `statechart`, `benchmark-checklist` |
 | Long runs | `show-me-your-work`, and the overnight, autopilot, and orchestrate playbooks under `poteto-mode/playbooks/` |
 | Principles | 24 `principle-*` leaves, from `principle-foundational-thinking` to `principle-prove-it-works` |
 
