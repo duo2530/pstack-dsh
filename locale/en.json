@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "pstack",
+    "description": "Adds every pstack skill to the skill catalog, so all sessions can use it. Start a task with /poteto-mode, and load pstack-adapter once per session so the Cursor tool names in a skill resolve to DSH tools. Ships the principle-* skills, the design, verification, and shipping playbooks, and the agent briefs. Turning the plugin off removes all of them together. A copy of a skill under ~/.dsh/skills still takes precedence over the bundled one."
+  }
+}

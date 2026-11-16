@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "pstack",
+    "description": "把整套 pstack 技能装进技能目录，所有会话都能用。用 /poteto-mode 开始任务，每个会话先加载一次 pstack-adapter，让技能里的 Cursor 工具名对应到 DSH 工具。包含 principle-* 技能、设计、验证和交付流程，以及 agent 简报。关闭插件会一次性移除全部技能。放在 ~/.dsh/skills 里的同名技能仍然优先于包内版本。"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "repository": "https://github.com/duo2530/plugins",
+  "ref": "pstack-dsh-harness",
+  "commit": "6080204d3c51448002e635723ac22b360fc6fa0c",
+  "generatedBy": "scripts/generate-pstack-harness-trees.mjs",
+  "skills": 61,
+  "syncedAt": "2026-11-16T11:00:40.748Z"
+}

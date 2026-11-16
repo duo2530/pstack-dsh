@@ -1,0 +1,43 @@
+{
+  "name": "pstack-dsh",
+  "version": "0.1.0",
+  "description": "Every pstack skill for DeepSeek Harness, installed as one plugin.",
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "pstack",
+    "poteto-mode",
+    "plugin",
+    "skills"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "duo2530"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/duo2530/pstack-dsh.git"
+  },
+  "homepage": "https://github.com/duo2530/pstack-dsh#readme",
+  "bugs": {
+    "url": "https://github.com/duo2530/pstack-dsh/issues"
+  },
+  "type": "module",
+  "exports": {
+    ".": "./index.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "index.js",
+    "cordis.patch.yml",
+    "skills",
+    "locale/*.json",
+    "icon.svg"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}
