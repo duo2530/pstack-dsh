@@ -1,6 +1,6 @@
 {
   "name": "pstack-dsh",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Every pstack skill for DeepSeek Harness, installed as one plugin.",
   "keywords": [
     "dsh",
@@ -33,6 +33,8 @@
     "lib",
     "cordis.patch.yml",
     "skills",
+    "scripts",
+    "UPSTREAM.json",
     "locale/*.json",
     "icon.svg"
   ],

@@ -10,13 +10,13 @@ This repository packages it for [DeepSeek Harness](https://github.com/deepseek-a
 
 ## Install
 
-The bundle is `github:duo2530/pstack-dsh#v0.1.1`, or the newest tag on [Releases](https://github.com/duo2530/pstack-dsh/releases).
+The bundle is `github:duo2530/pstack-dsh#v0.1.2`, or the newest tag on [Releases](https://github.com/duo2530/pstack-dsh/releases).
 
 **Plugins page.** In DSH, open the sidebar's **Plugins** page, install a bundle, and give it that spec.
 
 **Ask the agent.** Tell it to install the bundle:
 
-> Install the bundle `github:duo2530/pstack-dsh#v0.1.1` with `plugin_manager` `install_bundle`.
+> Install the bundle `github:duo2530/pstack-dsh#v0.1.2` with `plugin_manager` `install_bundle`.
 
 **From a checkout.** Clone the repository, then use **Plugins** > **Add plugin** with the directory you cloned into:
 
@@ -40,12 +40,13 @@ Run `/setup-pstack` once to decide which model each pstack role uses. It writes 
 |---|---|
 | Style and routing | `poteto-mode`, `poteto-help`, `pstack-adapter`, `poteto-agent`, `comment-sicko`, `unslop`, `bro`, `no-comments`, `in-your-own-words`, `ketchup`, `ketchup-video`, `technical-writing`, `typescript-best-practices`, `teach` |
 | Plan and design | `architect`, `figure-it-out`, `sharpen`, `how`, `why`, `recall`, `reflect`, `automate-me` |
-| Build and review | `interrogate`, `arena`, `swarm`, `blast-radius`, `correct`, `tdd`, `make-bot-ui` |
+| Build and review | `interrogate`, `arena`, `swarm`, `blast-radius`, `correct`, `tdd` |
 | Verify and ship | `create-verification-skill`, `maintain-verification-skill`, `create-formal-verification-skill`, `maintain-formal-verification-skill`, `statechart`, `benchmark-checklist` |
 | Long runs | `show-me-your-work`, and the overnight, autopilot, and orchestrate playbooks under `poteto-mode/playbooks/` |
+| Cursor only | `make-bot-ui` ships but is skipped here: its webhook targets Cursor Automations, which DSH replaces with `schedule_create` |
 | Principles | 24 `principle-*` leaves, from `principle-foundational-thinking` to `principle-prove-it-works` |
 
-`pstack-help` answers questions about the stack and points at the skill for a task; start there when you do not know which one you want.
+`poteto-help` answers questions about the stack and points at the skill for a task; start there when you do not know which one you want.
 
 ## What differs from the Cursor edition
 

@@ -64,7 +64,7 @@ if (manifest !== undefined) {
     check(manifest.exports?.[entry] !== undefined, `package.json: exports is missing ${entry}`)
   }
   const files = manifest.files ?? []
-  for (const entry of ['index.js', 'lib', 'cordis.patch.yml', 'skills', 'locale/*.json', 'icon.svg']) {
+  for (const entry of ['index.js', 'lib', 'cordis.patch.yml', 'skills', 'scripts', 'UPSTREAM.json', 'locale/*.json', 'icon.svg']) {
     check(files.includes(entry), `package.json: files is missing ${entry}`)
   }
   check(manifest.engines === undefined, 'package.json: do not pin engines.dsh yet; a prerelease DSH version fails a plain range')
@@ -149,6 +149,16 @@ const upstream = await json('UPSTREAM.json')
 if (upstream !== undefined) {
   check(/^[0-9a-f]{40}$/.test(upstream.commit ?? ''), 'UPSTREAM.json: commit must be a full 40-character hash')
   check(upstream.skills === folders.length, `UPSTREAM.json: records ${upstream.skills} skills, the tree has ${folders.length}`)
+}
+
+// A tagged install packs the README at that tag, and that README is the bundle
+// page in Plugins. It must name the tag it ships in, or a new user copies the
+// install spec of the previous release. GitHub Actions sets both values on a
+// tag push; a local run skips this.
+if (process.env.GITHUB_REF_TYPE === 'tag') {
+  const tag = process.env.GITHUB_REF_NAME
+  const readme = await readFile(join(ROOT, 'README.md'), 'utf8').catch(() => '')
+  check(readme.includes(`${manifest?.name}#${tag}`), `README.md: does not name the release tag ${manifest?.name}#${tag}`)
 }
 
 if (problems.length > 0) {
